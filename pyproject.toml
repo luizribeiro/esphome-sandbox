@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "esphome-sandbox"
+version = "0.0.1"
+description = "My setup for all my esphome devices"
+authors = [
+  "Luiz Ribeiro <luizribeiro@gmail.com>",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+esphome = "1.15.3"
+
+[build-system]
+requires = ["poetry>=1.0.10"]
+build-backend = "poetry.masonry.api"

@@ -1,0 +1,29 @@
+---
+esphome:
+  name: office
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: "IoT"
+  password: !secret iot_wifi_key
+
+logger:
+
+api:
+
+i2c:
+
+sensor:
+  - platform: bme680
+    address: 0x77
+    update_interval: 30s
+    temperature:
+      name: "Office Temperature"
+      oversampling: 16x
+    pressure:
+      name: "Office Pressure"
+    humidity:
+      name: "Office Humidity"
+    gas_resistance:
+      name: "Office Gas Resistance"
