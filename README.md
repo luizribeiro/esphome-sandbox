@@ -5,7 +5,9 @@ devices.
 
 ## Setup
 
-`poetry install`
+1. `poetry install`
+2. `cp example-secrets.yaml secrets.yaml`
+3. Edit `secrets.yaml`
 
 ## Compiling & Flashing
 
