@@ -24,6 +24,13 @@ sensor:
     pressure:
       name: "Office Pressure"
     humidity:
+      id: hum
       name: "Office Humidity"
     gas_resistance:
+      id: g_res
       name: "Office Gas Resistance"
+  - platform: template
+    name: "Office Air Quality"
+    id: IAQ
+    unit_of_measurement: IAQ
+    lambda: "return log(id(g_res).state) + 0.04 * id(hum).state;"
