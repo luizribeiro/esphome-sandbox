@@ -4,7 +4,7 @@ esphome:
   platform: ESP8266
   board: d1_mini
   includes:
-    - "CE_BSEC.h"
+    - "BSECSensor.h"
   libraries:
     - "BSEC Software Library"
 
@@ -24,21 +24,21 @@ ota:
 sensor:
   - platform: custom
     lambda: |-
-      auto IAQSensor = new CE_BSEC();
-      App.register_component(IAQSensor);
+      auto bsec = new BSECSensor();
+      App.register_component(bsec);
       return {
-        IAQSensor->TSensor,
-        IAQSensor->PSensor,
-        IAQSensor->HSensor,
-        IAQSensor->AQSensor,
-        IAQSensor->GRSensor,
+        bsec->temperatureSensor,
+        bsec->pressureSensor,
+        bsec->humiditySensor,
+        bsec->airQualitySensor,
+        bsec->gasResistanceSensor,
       };
     sensors:
       - name: "Office Temperature"
         unit_of_measurement: "°C"
         accuracy_decimals: 1
       - name: "Office Pressure"
-        unit_of_measurement: "Pa"
+        unit_of_measurement: "hPa"
         accuracy_decimals: 1
       - name: "Office Humidity"
         unit_of_measurement: "%"
