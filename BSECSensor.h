@@ -34,19 +34,10 @@ class BSECSensor : public PollingComponent, public Sensor {
   void update() override {
     bsec.run();
 
-    float Temp = bsec.temperature;
-    temperatureSensor->publish_state(Temp);
-    
-    float Press = bsec.pressure;
-    pressureSensor->publish_state(Press);
-    
-    float Hum = bsec.humidity;
-    humiditySensor->publish_state(Hum);
-    
-    float Qual = bsec.staticIaq;
-    airQualitySensor->publish_state(Qual);
-    
-    float Resis = bsec.gasResistance;
-    gasResistanceSensor->publish_state(Resis);
+    temperatureSensor->publish_state(bsec.temperature);
+    pressureSensor->publish_state(bsec.pressure);
+    humiditySensor->publish_state(bsec.humidity);
+    airQualitySensor->publish_state(bsec.staticIaq);
+    gasResistanceSensor->publish_state(bsec.gasResistance);
   }
 };
