@@ -37,15 +37,20 @@ sensor:
       - name: "Office Temperature"
         unit_of_measurement: "°C"
         accuracy_decimals: 1
+        icon: mdi:thermometer
       - name: "Office Pressure"
         unit_of_measurement: "hPa"
         accuracy_decimals: 1
+        icon: mdi:gauge
       - name: "Office Humidity"
         unit_of_measurement: "%"
         accuracy_decimals: 1
+        icon: mdi:water-percent
       - name: "Office Air Quality"
         unit_of_measurement: "IAQ"
         accuracy_decimals: 1
+        icon: mdi:gauge
       - name: "Office Gas Resistance"
         unit_of_measurement: "Ω"
         accuracy_decimals: 1
+        icon: mdi:gas-cylinder
