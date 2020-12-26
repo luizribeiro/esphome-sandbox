@@ -45,7 +45,7 @@ class CE_BSEC : public PollingComponent, public Sensor {
     float Hum = iaqSensor.humidity;
     HSensor->publish_state(Hum);
     
-    float Qual = iaqSensor.iaq;
+    float Qual = iaqSensor.staticIaq;
     AQSensor->publish_state(Qual);
     
     float Resis = iaqSensor.gasResistance;
