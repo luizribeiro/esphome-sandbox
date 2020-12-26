@@ -10,6 +10,7 @@ esphome:
 
 wifi:
   ssid: "IoT"
+  domain: .thepromisedlan
   password: !secret iot_wifi_key
 
 logger:
