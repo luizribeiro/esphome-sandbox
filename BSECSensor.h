@@ -16,7 +16,7 @@ class BSECSensor : public PollingComponent, public Sensor {
 
   void setup() override {
     bsec.begin(BME680_I2C_ADDR_SECONDARY, Wire);
-    bsec_virtual_sensor_t sensorList[10] = {
+    bsec_virtual_sensor_t sensorList[] = {
       BSEC_OUTPUT_RAW_TEMPERATURE,
       BSEC_OUTPUT_RAW_PRESSURE,
       BSEC_OUTPUT_RAW_HUMIDITY,
@@ -28,7 +28,11 @@ class BSECSensor : public PollingComponent, public Sensor {
       BSEC_OUTPUT_SENSOR_HEAT_COMPENSATED_TEMPERATURE,
       BSEC_OUTPUT_SENSOR_HEAT_COMPENSATED_HUMIDITY,
     };
-    bsec.updateSubscription(sensorList, 10, BSEC_SAMPLE_RATE_LP);
+    bsec.updateSubscription(
+      sensorList,
+      sizeof(sensorList) / sizeof(sensorList[0]),
+      BSEC_SAMPLE_RATE_LP
+    );
   }
 
   void update() override {
