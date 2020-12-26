@@ -18,6 +18,8 @@ api:
 
 i2c:
 
+ota:
+
 sensor:
   - platform: custom
     lambda: |-
