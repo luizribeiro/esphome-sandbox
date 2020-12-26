@@ -35,7 +35,7 @@ sensor:
       };
     sensors:
       - name: "Office Temperature"
-        unit_of_measurement: "V"
+        unit_of_measurement: "°C"
         accuracy_decimals: 1
       - name: "Office Pressure"
         unit_of_measurement: "hPa"
