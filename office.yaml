@@ -38,7 +38,7 @@ sensor:
         unit_of_measurement: "°C"
         accuracy_decimals: 1
       - name: "Office Pressure"
-        unit_of_measurement: "hPa"
+        unit_of_measurement: "Pa"
         accuracy_decimals: 1
       - name: "Office Humidity"
         unit_of_measurement: "%"
