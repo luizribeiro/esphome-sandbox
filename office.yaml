@@ -3,6 +3,10 @@ esphome:
   name: office
   platform: ESP8266
   board: d1_mini
+  includes:
+    - "CE_BSEC.h"
+  libraries:
+    - "BSEC Software Library"
 
 wifi:
   ssid: "IoT"
@@ -15,22 +19,30 @@ api:
 i2c:
 
 sensor:
-  - platform: bme680
-    address: 0x77
-    update_interval: 30s
-    temperature:
-      name: "Office Temperature"
-      oversampling: 16x
-    pressure:
-      name: "Office Pressure"
-    humidity:
-      id: hum
-      name: "Office Humidity"
-    gas_resistance:
-      id: g_res
-      name: "Office Gas Resistance"
-  - platform: template
-    name: "Office Air Quality"
-    id: IAQ
-    unit_of_measurement: IAQ
-    lambda: "return log(id(g_res).state) + 0.04 * id(hum).state;"
+  - platform: custom
+    lambda: |-
+      auto IAQSensor = new CE_BSEC();
+      App.register_component(IAQSensor);
+      return {
+        IAQSensor->TSensor,
+        IAQSensor->PSensor,
+        IAQSensor->HSensor,
+        IAQSensor->AQSensor,
+        IAQSensor->GRSensor,
+      };
+    sensors:
+      - name: "Office Temperature"
+        unit_of_measurement: "V"
+        accuracy_decimals: 1
+      - name: "Office Pressure"
+        unit_of_measurement: "hPa"
+        accuracy_decimals: 1
+      - name: "Office Humidity"
+        unit_of_measurement: "%"
+        accuracy_decimals: 1
+      - name: "Office Air Quality"
+        unit_of_measurement: "IAQ"
+        accuracy_decimals: 1
+      - name: "Office Gas Resistance"
+        unit_of_measurement: "Ω"
+        accuracy_decimals: 1
