@@ -1,0 +1,3 @@
+[submodule "dependencies/esphome-bsec-bme680"]
+	path = dependencies/esphome-bsec-bme680
+	url = https://github.com/trvrnrth/esphome-bsec-bme680.git

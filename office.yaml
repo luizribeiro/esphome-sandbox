@@ -3,10 +3,6 @@ esphome:
   name: office
   platform: ESP8266
   board: d1_mini
-  includes:
-    - "BSECSensor.h"
-  libraries:
-    - "BSEC Software Library"
 
 wifi:
   ssid: "IoT"
@@ -21,36 +17,27 @@ i2c:
 
 ota:
 
+bme680_bsec:
+  address: 0x77
+
 sensor:
-  - platform: custom
-    lambda: |-
-      auto bsec = new BSECSensor();
-      App.register_component(bsec);
-      return {
-        bsec->temperatureSensor,
-        bsec->pressureSensor,
-        bsec->humiditySensor,
-        bsec->airQualitySensor,
-        bsec->gasResistanceSensor,
-      };
-    sensors:
-      - name: "Office Temperature"
-        unit_of_measurement: "°C"
-        accuracy_decimals: 1
-        icon: mdi:thermometer
-      - name: "Office Pressure"
-        unit_of_measurement: "Pa"
-        accuracy_decimals: 1
-        icon: mdi:gauge
-      - name: "Office Humidity"
-        unit_of_measurement: "%"
-        accuracy_decimals: 1
-        icon: mdi:water-percent
-      - name: "Office Air Quality"
-        unit_of_measurement: "IAQ"
-        accuracy_decimals: 1
-        icon: mdi:gauge
-      - name: "Office Gas Resistance"
-        unit_of_measurement: "Ω"
-        accuracy_decimals: 1
-        icon: mdi:gas-cylinder
+  - platform: bme680_bsec
+    temperature:
+      name: "Office Temperature"
+    pressure:
+      name: "Office Pressure"
+    humidity:
+      name: "Office Humidity"
+    gas_resistance:
+      name: "Office Gas Resistance"
+    iaq:
+      name: "Office Air Quality"
+    co2_equivalent:
+      name: "Office CO2 Equivalent"
+    breath_voc_equivalent:
+      name: "Office Breath VOC Equivalent"
+
+text_sensor:
+  - platform: bme680_bsec
+    iaq_accuracy:
+      name: "Office IAQ Accuracy"
