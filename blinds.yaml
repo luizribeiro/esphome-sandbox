@@ -3,6 +3,16 @@ esphome:
   name: blinds
   platform: ESP8266
   board: d1_mini
+  esp8266_restore_from_flash: true
+  on_boot:
+    priority: 700.0
+    then:
+      - stepper.report_position:
+          id: office_blinds_stepper
+          position: !lambda return id(stepper_position);
+      - stepper.set_target:
+          id: office_blinds_stepper
+          target: !lambda return id(stepper_position);
 
 wifi:
   ssid: "IoT"
@@ -18,14 +28,19 @@ api:
         target: int
       then:
         - stepper.set_target:
-            id: office_blinds
+            id: office_blinds_stepper
             target: !lambda "return target;"
 
 ota:
 
+globals:
+  - id: stepper_position
+    type: float
+    restore_value: true
+
 stepper:
   - platform: uln2003
-    id: office_blinds
+    id: office_blinds_stepper
     pin_a: GPIO5
     pin_b: GPIO4
     pin_c: GPIO0
@@ -33,3 +48,35 @@ stepper:
     max_speed: 1019 steps/s
     step_mode: FULL_STEP
     sleep_when_done: true
+
+cover:
+  - platform: template
+    name: "Office Blinds"
+    id: office_blinds
+    lambda: |-
+      if (id(office_blinds_stepper).current_position < -10) {
+        return COVER_OPEN;
+      } else {
+        return COVER_CLOSED;
+      }
+    open_action:
+      - stepper.set_target:
+          id: office_blinds_stepper
+          target: "-13000"
+      - globals.set:
+          id: stepper_position
+          value: "-13000"
+    close_action:
+      - stepper.set_target:
+          id: office_blinds_stepper
+          target: "0"
+      - globals.set:
+          id: stepper_position
+          value: "0"
+    stop_action:
+      - globals.set:
+          id: stepper_position
+          value: !lambda return id(office_blinds_stepper).current_position;
+      - stepper.set_target:
+          id: office_blinds_stepper
+          target: !lambda return id(office_blinds_stepper).current_position;
