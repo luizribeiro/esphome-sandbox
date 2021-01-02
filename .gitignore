@@ -1,4 +1,5 @@
 .esphome/
 .venv
+blinds/
 office/
 secrets.yaml

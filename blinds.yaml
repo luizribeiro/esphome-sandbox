@@ -1,0 +1,27 @@
+---
+esphome:
+  name: blinds
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: "IoT"
+  domain: .thepromisedlan
+  password: !secret iot_wifi_key
+
+logger:
+
+api:
+
+i2c:
+
+ota:
+
+stepper:
+  - platform: uln2003
+    id: office_blinds
+    pin_a: D1
+    pin_b: D2
+    pin_c: D3
+    pin_d: D4
+    max_speed: 250  # steps/s
