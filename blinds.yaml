@@ -51,8 +51,10 @@ stepper:
 
 cover:
   - platform: template
-    name: "Office Blinds"
     id: office_blinds
+    name: "Office Blinds"
+    device_class: blind
+    assumed_state: true
     lambda: |-
       if (id(office_blinds_stepper).current_position < -10) {
         return COVER_OPEN;
