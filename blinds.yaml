@@ -30,6 +30,6 @@ stepper:
     pin_b: GPIO4
     pin_c: GPIO0
     pin_d: GPIO2
-    max_speed: 510 steps/s
+    max_speed: 1019 steps/s
     step_mode: FULL_STEP
     sleep_when_done: true
