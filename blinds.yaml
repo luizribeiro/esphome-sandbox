@@ -12,16 +12,24 @@ wifi:
 logger:
 
 api:
-
-i2c:
+  services:
+    - service: control_stepper
+      variables:
+        target: int
+      then:
+        - stepper.set_target:
+            id: office_blinds
+            target: !lambda "return target;"
 
 ota:
 
 stepper:
   - platform: uln2003
     id: office_blinds
-    pin_a: D1
-    pin_b: D2
-    pin_c: D3
-    pin_d: D4
-    max_speed: 250  # steps/s
+    pin_a: GPIO5
+    pin_b: GPIO4
+    pin_c: GPIO0
+    pin_d: GPIO2
+    max_speed: 510 steps/s
+    step_mode: FULL_STEP
+    sleep_when_done: true
