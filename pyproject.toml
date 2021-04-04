@@ -8,7 +8,7 @@ authors = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-esphome = "1.15.3"
+esphome = { git = "https://github.com/misery/esphome.git", branch = "dev" }
 
 [build-system]
 requires = ["poetry>=1.0.10"]

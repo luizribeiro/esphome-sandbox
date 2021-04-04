@@ -2,5 +2,6 @@
 .venv
 blinds/
 bedroomblinds/
+bedroomblinds_v2/
 office/
 secrets.yaml
