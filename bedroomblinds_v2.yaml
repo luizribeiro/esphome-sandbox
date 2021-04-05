@@ -47,11 +47,11 @@ globals:
 stepper:
   - platform: uln2003
     id: blinds_stepper
-    pin_a: GPIO5
-    pin_b: GPIO4
-    pin_c: GPIO0
-    pin_d: GPIO2
-    max_speed: 1019 steps/s
+    pin_a: GPIO4
+    pin_b: GPIO1
+    pin_c: GPIO2
+    pin_d: GPIO3
+    max_speed: 500 steps/s
     step_mode: FULL_STEP
     sleep_when_done: true
 
