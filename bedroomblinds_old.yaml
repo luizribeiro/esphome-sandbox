@@ -52,8 +52,8 @@ stepper:
 
 cover:
   - platform: template
-    id: bedroom_blinds
-    name: "Bedroom Blinds"
+    id: bedroom_blinds_old
+    name: "Bedroom Blinds Old"
     device_class: blind
     assumed_state: true
     lambda: |-
