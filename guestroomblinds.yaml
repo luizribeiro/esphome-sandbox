@@ -1,0 +1,90 @@
+---
+esphome:
+  name: guestroomblinds
+  platform: ESP32
+  arduino_version: dev
+  board: espblinds
+  platformio_options:
+    platform_packages: >-
+      framework-arduinoespressif32
+      @ https://github.com/espressif/arduino-esp32.git#idf-master
+    upload_protocol: jlink
+  on_boot:
+    priority: 700.0
+    then:
+      - stepper.report_position:
+          id: blinds_stepper
+          position: !lambda return id(stepper_position);
+      - stepper.set_target:
+          id: blinds_stepper
+          target: !lambda return id(stepper_position);
+
+wifi:
+  ssid: "IoT"
+  domain: .thepromisedlan
+  password: !secret iot_wifi_key
+  fast_connect: true
+
+logger:
+
+api:
+  services:
+    - service: control_stepper
+      variables:
+        target: int
+      then:
+        - stepper.set_target:
+            id: blinds_stepper
+            target: !lambda "return target;"
+
+ota:
+
+globals:
+  - id: stepper_position
+    type: float
+    restore_value: true
+
+stepper:
+  - platform: uln2003
+    id: blinds_stepper
+    pin_a: GPIO4
+    pin_b: GPIO1
+    pin_c: GPIO2
+    pin_d: GPIO3
+    max_speed: 500 steps/s
+    step_mode: FULL_STEP
+    sleep_when_done: true
+
+cover:
+  - platform: template
+    id: guestroom_blinds
+    name: "Guest Room Blinds"
+    device_class: blind
+    assumed_state: true
+    lambda: |-
+      if (id(blinds_stepper).current_position < -10) {
+        return COVER_OPEN;
+      } else {
+        return COVER_CLOSED;
+      }
+    open_action:
+      - stepper.set_target:
+          id: blinds_stepper
+          target: "-13000"
+      - globals.set:
+          id: stepper_position
+          value: "-13000"
+    close_action:
+      - stepper.set_target:
+          id: blinds_stepper
+          target: "0"
+      - globals.set:
+          id: stepper_position
+          value: "0"
+    stop_action:
+      - globals.set:
+          id: stepper_position
+          value: !lambda return id(blinds_stepper).current_position;
+      - stepper.set_target:
+          id: blinds_stepper
+          target: !lambda return id(blinds_stepper).current_position;
