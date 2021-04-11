@@ -55,7 +55,7 @@ cover:
     id: office_blinds
     name: "Office Blinds"
     device_class: blind
-    assumed_state: true
+    assumed_state: false
     has_position: true
     lambda: |-
       if (id(office_blinds_stepper).current_position < -10) {
