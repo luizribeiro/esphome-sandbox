@@ -7,7 +7,7 @@ esphome:
   platformio_options:
     platform_packages: >-
       framework-arduinoespressif32
-      @ https://github.com/espressif/arduino-esp32.git#idf-master
+      @ https://github.com/espressif/arduino-esp32.git#master
     upload_protocol: jlink
   on_boot:
     priority: 700.0
