@@ -60,7 +60,8 @@ cover:
     id: bedroom_blinds
     name: "Bedroom Blinds"
     device_class: blind
-    assumed_state: true
+    assumed_state: false
+    has_position: true
     lambda: |-
       if (id(blinds_stepper).current_position < -10) {
         return COVER_OPEN;
@@ -81,6 +82,13 @@ cover:
       - globals.set:
           id: stepper_position
           value: "0"
+    position_action:
+      - stepper.set_target:
+          id: blinds_stepper
+          target: !lambda return int(-13000 * pos);
+      - globals.set:
+          id: stepper_position
+          value: !lambda return int(-13000 * pos);
     stop_action:
       - globals.set:
           id: stepper_position
