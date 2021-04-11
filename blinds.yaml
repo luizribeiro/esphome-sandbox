@@ -76,6 +76,13 @@ cover:
       - globals.set:
           id: stepper_position
           value: "0"
+    position_action:
+      - stepper.set_target:
+          id: office_blinds_stepper
+          target: !lambda return int(-13000 * pos);
+      - globals.set:
+          id: stepper_position
+          value: !lambda return int(-13000 * pos);
     stop_action:
       - globals.set:
           id: stepper_position
