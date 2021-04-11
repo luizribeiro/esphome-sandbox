@@ -8,10 +8,10 @@ esphome:
     priority: 700.0
     then:
       - stepper.report_position:
-          id: office_blinds_stepper
+          id: blinds_stepper
           position: !lambda return id(stepper_position);
       - stepper.set_target:
-          id: office_blinds_stepper
+          id: blinds_stepper
           target: !lambda return id(stepper_position);
 
 wifi:
@@ -29,7 +29,7 @@ api:
         target: int
       then:
         - stepper.set_target:
-            id: office_blinds_stepper
+            id: blinds_stepper
             target: !lambda "return target;"
 
 ota:
@@ -41,7 +41,7 @@ globals:
 
 stepper:
   - platform: uln2003
-    id: office_blinds_stepper
+    id: blinds_stepper
     pin_a: GPIO5
     pin_b: GPIO4
     pin_c: GPIO0
@@ -58,28 +58,28 @@ cover:
     assumed_state: false
     has_position: true
     lambda: |-
-      if (id(office_blinds_stepper).current_position < -10) {
+      if (id(blinds_stepper).current_position < -10) {
         return COVER_OPEN;
       } else {
         return COVER_CLOSED;
       }
     open_action:
       - stepper.set_target:
-          id: office_blinds_stepper
+          id: blinds_stepper
           target: "-13000"
       - globals.set:
           id: stepper_position
           value: "-13000"
     close_action:
       - stepper.set_target:
-          id: office_blinds_stepper
+          id: blinds_stepper
           target: "0"
       - globals.set:
           id: stepper_position
           value: "0"
     position_action:
       - stepper.set_target:
-          id: office_blinds_stepper
+          id: blinds_stepper
           target: !lambda return int(-13000 * pos);
       - globals.set:
           id: stepper_position
@@ -87,7 +87,7 @@ cover:
     stop_action:
       - globals.set:
           id: stepper_position
-          value: !lambda return id(office_blinds_stepper).current_position;
+          value: !lambda return id(blinds_stepper).current_position;
       - stepper.set_target:
-          id: office_blinds_stepper
-          target: !lambda return id(office_blinds_stepper).current_position;
+          id: blinds_stepper
+          target: !lambda return id(blinds_stepper).current_position;
