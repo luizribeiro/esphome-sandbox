@@ -1,7 +1,7 @@
 .esphome/
 .venv
-blinds/
 bedroomblinds/
 guestroomblinds/
-office/
+iot-office-blinds/
+iot-office-sensor/
 secrets.yaml
