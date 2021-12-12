@@ -1,14 +1,16 @@
 ---
 esphome:
-  name: bedroomblinds
+  name: iot-bedroom-blinds
   platform: ESP32
   arduino_version: dev
-  board: espblinds
+  board: esp32-s2-saola-1
   platformio_options:
-    platform_packages: >-
-      framework-arduinoespressif32
-      @ https://github.com/espressif/arduino-esp32.git#master
-    upload_protocol: jlink
+    platform:
+      - https://github.com/platformio/platform-espressif32.git#feature/arduino-upstream
+    platform_packages:
+      - >-
+        platformio/framework-arduinoespressif32
+        @ https://github.com/espressif/arduino-esp32.git#2.0.0-rc1
   on_boot:
     priority: 700.0
     then:
