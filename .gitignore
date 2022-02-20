@@ -5,3 +5,4 @@ guestroomblinds/
 iot-office-blinds/
 iot-office-sensor/
 secrets.yaml
+.direnv/
