@@ -23,7 +23,7 @@ esphome:
 
 wifi:
   ssid: "IoT"
-  domain: .thepromisedlan.club
+  domain: .i.thepromisedlan.club
   password: !secret iot_wifi_key
   fast_connect: true
 
